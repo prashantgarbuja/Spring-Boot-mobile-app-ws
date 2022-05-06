@@ -26,7 +26,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
         .csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL) //from com.demoapp.ws.security package
         .permitAll()
-        .anyRequest().authenticated().and().addFilter(new AuthenticationFilter(authenticationManager()));
+        .anyRequest().authenticated().and()
+        .addFilter(new AuthenticationFilter(authenticationManager()))
+        .addFilter(new AuthorizationFilter(authenticationManager()));
     }
 
     @Override
